@@ -31,27 +31,32 @@ class NewVisitorTest(unittest.TestCase):
 		inputbox.send_keys('Take car from repair')
 
 		# When user clicks enter, page updates, and now the page lists
-		# "1: Take car from repear" as an item in to-do list
+		# "1: Take car from repair" as an item in to-do list
 		inputbox.send_keys(Keys.ENTER)
 		time.sleep(1)
 
 		table = self.browser.find_element_by_id('id_list_table')
 		rows = table.find_elements_by_tag_name('tr')
-		self.assertTrue(
-			any(row.text == '1: Take car from repear' for row in rows),
-			"New to-do item did not appear in table"
-			)
+		self.assertIn('1: Take car from repair', [row.text for row in rows])
 
 		
 		# There is still a text box, inviting user to write another item in to-do list
-
 		# User enters "Write some report tests"
+		# User hits "Enter"
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox.send_keys('Write some report tests')
+		inputbox.send_keys(Keys.ENTER)
+		time.sleep(1)
+
+		# The page updates again and now there are 2 items in to-do list
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn('1: Take car from repair', [row.text for row in rows])
+		self.assertIn('2: Write some report tests', [row.text for row in rows])
+
+		# Site generates a URL to store the to-do list
+		# Info message is showing to user informing about storing to-do list at the URL
 		self.fail('Finish the test!')
-
-# The page updates again and now there are 2 items in to-do list
-
-# Site generates a URL to store the to-do list
-# Info message is showing to user informing about storing to-do list at the URL
 
 # User visits URL and verifys that to-do list is still there
 
