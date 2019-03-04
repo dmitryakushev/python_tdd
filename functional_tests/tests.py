@@ -1,9 +1,9 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest
 import time
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
 	def setUp(self):
 		self.browser = webdriver.Firefox()
@@ -19,7 +19,7 @@ class NewVisitorTest(unittest.TestCase):
 
 	def test_can_start_a_list_and_retrieve_it_later(self):
 		# User opens homapage of the inline to-do app
-		self.browser.get('http://localhost:8000')
+		self.browser.get(self.live_server_url)
 
 		# User see that page title and header mention to-do lists
 		self.assertIn('To-Do', self.browser.title)
@@ -40,10 +40,7 @@ class NewVisitorTest(unittest.TestCase):
 		# "1: Take car from repair" as an item in to-do list
 		inputbox.send_keys(Keys.ENTER)
 		time.sleep(1)
-
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertIn('1: Take car from repair', [row.text for row in rows])
+		self.check_for_row_in_list_table('1: Take car from repair')
 
 		
 		# There is still a text box, inviting user to write another item in to-do list
