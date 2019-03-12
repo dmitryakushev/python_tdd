@@ -94,8 +94,8 @@ class NewVisitorTest(LiveServerTestCase):
 		# User_2 starts a new to-do list by entering a new item
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys('Buy milk')
-		inputbox.send_keys(keys.ENTER)
-		seld.wait_for_row_in_list_table('1: Buy milk')
+		inputbox.send_keys(Keys.ENTER)
+		self.wait_for_row_in_list_table('1: Buy milk')
 
 		# User_2 gets his own URL
 		user2_list_url = self.browser.current_url
