@@ -59,7 +59,6 @@ class NewVisitorTest(LiveServerTestCase):
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys('Write some report tests')
 		inputbox.send_keys(Keys.ENTER)
-		time.sleep(1)
 
 		# The page updates again and now there are 2 items in to-do list
 		self.wait_for_row_in_list_table('1: Take car from repair')
@@ -105,9 +104,8 @@ class NewVisitorTest(LiveServerTestCase):
 		# Again there is no trace of User_1 list
 		page_text = self.browser.find_element_by_tag_name('body').text
 		self.assertNotIn('Take car from repair', page_text)
-		self.assertIn('Buy milk')
-
-		self.fail('Finish the test!')
+		self.assertIn('Buy milk', page_text)
+# 
 
 # User_1 visits URL and verifys that to-do list is still there
 
