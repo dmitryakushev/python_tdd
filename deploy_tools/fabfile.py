@@ -1,3 +1,5 @@
+# this file is used for automated deploy on server
+
 import random
 from fabric.contrib.files import append, exists
 from fabric.api import cd, env, local, run
