@@ -3,6 +3,7 @@ from fabric.contrib.files import append, exists
 from fabric.api import cd, env, local, run
 
 REPO_URL = 'https://github.com/dmitryakushev/python_tdd.git'
+env.user = 'user2'
 
 def deploy():
 	site_folder = f'/home/{env.user}/sites/{env.host}'
@@ -47,7 +48,9 @@ def _update_static_files():
 
 def _update_database():
 	run('./virtualenv/bin/python manage.py migrate --noinput')
-	
+
+
+
 
 
 
