@@ -3,7 +3,6 @@ from fabric.contrib.files import append, exists
 from fabric.api import cd, env, local, run
 
 REPO_URL = 'https://github.com/dmitryakushev/python_tdd.git'
-# env.user = 'user2'
 
 def deploy():
 	site_folder = f'/home/{env.user}/sites/{env.host}'
@@ -21,8 +20,8 @@ def _get_latest_source():
 		run('git fetch')
 	else:
 		run(f'git clone {REPO_URL} .')
-		current_commit = local("git log -n 1 --format=%H", capture=True)
-		run(f'git reset --hard {current_commit}')
+	current_commit = local("git log -n 1 --format=%H", capture=True)
+	run(f'git reset --hard {current_commit}')
 
 
 def _update_virtualenv():
